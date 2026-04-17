@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Einbürgerungstest Mock Exam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Mock Exam Mode</p>
+        <h1>einburgerungstest2026, with beginner-friendly help</h1>
+        <p class="hero-copy">German questions first. Simple English support only when you need it.</p>
+      </header>
+
+      <main id="app" class="app-card">
+        <div id="profile-strip" class="profile-strip hidden">
+          <div class="profile-summary">
+            <span id="profile-display" class="profile-display">Profile: not set</span>
+            <div class="dataset-progress dataset-progress-inline">
+              <div class="dataset-progress-copy">
+                <span class="dataset-progress-label">Mastered</span>
+                <span id="dataset-progress-text" class="dataset-progress-text">0 / 0</span>
+              </div>
+              <div class="dataset-progress-track">
+                <div id="dataset-progress-fill" class="dataset-progress-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="profile-actions">
+            <button id="view-history-btn" class="profile-change-btn" type="button">Question History</button>
+            <button id="change-profile-btn" class="profile-change-btn" type="button">Change</button>
+          </div>
+        </div>
+        <section id="start-screen" class="panel active">
+          <div class="panel-copy">
+            <span class="badge-row">
+              <span class="badge">33 Questions</span>
+              <span class="badge">Pass at 17</span>
+              <span id="start-ai-badge" class="badge subtle">AI: checking...</span>
+            </span>
+            <h2>Start a realistic mock exam</h2>
+            <p>
+              Use the same profile ID on laptop and mobile to share memory, weak spots, and session history.
+            </p>
+          </div>
+          <div class="profile-box">
+            <label class="profile-label" for="profile-id-input">Profile ID</label>
+            <input id="profile-id-input" class="profile-input" type="text" maxlength="64" placeholder="e.g. shakya-german-2026" autocapitalize="off" autocorrect="off" spellcheck="false" />
+            <p class="profile-note">Use the same ID across devices to share activity.</p>
+          </div>
+          <button id="start-exam-btn" class="primary-btn">Start Mock Exam</button>
+        </section>
+
+        <section id="exam-screen" class="panel">
+          <div id="exam-layout" class="exam-layout">
+            <div class="exam-main">
+              <div class="top-row">
+                <div>
+                  <p id="progress-label" class="progress-label"></p>
+                  <h2 id="question-text" class="question-text"></h2>
+                </div>
+                <div class="status-badges">
+                  <span class="badge">Mock Exam Mode</span>
+                  <span id="ai-badge" class="badge subtle">
+                    <span id="ai-badge-text">AI: checking...</span>
+                    <span id="ai-badge-spinner" class="btn-spinner secondary hidden" aria-hidden="true"></span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="toolbar">
+                <label class="switch">
+                  <input id="translation-toggle" type="checkbox" />
+                  <span>EN</span>
+                </label>
+                <label class="switch">
+                  <input id="emoji-toggle" type="checkbox" />
+                  <span>Emoji</span>
+                </label>
+                <label class="switch">
+                  <input id="hint-toggle" type="checkbox" />
+                  <span>Hint</span>
+                </label>
+              </div>
+
+              <form id="answer-form" class="answers"></form>
+
+              <div class="action-row">
+                <button id="back-btn" class="secondary-btn" type="button">Previous Question</button>
+                <button id="submit-btn" class="primary-btn" type="button">
+                  <span class="btn-label">Submit Answer</span>
+                  <span class="btn-spinner hidden" aria-hidden="true"></span>
+                </button>
+                <button id="next-btn" class="secondary-btn hidden" type="button">Next Question</button>
+                <button id="restart-exam-btn" class="secondary-btn" type="button">Restart Mock Exam</button>
+              </div>
+
+              <section id="feedback-box" class="feedback-box hidden"></section>
+            </div>
+
+            <button id="hint-backdrop" class="hint-backdrop hidden" type="button" aria-label="Close hint panel"></button>
+            <aside id="hint-sidebar" class="hint-sidebar hidden" aria-label="Hint panel">
+              <div class="hint-sidebar-header">
+                <p class="eyebrow small">Easy bilingual hint</p>
+                <button id="hint-close-btn" class="hint-close-btn" type="button" aria-label="Close hint panel">Close</button>
+              </div>
+              <h3 id="hint-title"></h3>
+              <p id="hint-text"></p>
+              <div class="hint-note">
+                <strong>Remember:</strong>
+                <span id="memory-trick"></span>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="result-screen" class="panel">
+          <div class="panel-copy">
+            <p class="eyebrow">Exam Result</p>
+            <h2 id="result-headline"></h2>
+            <p id="result-copy"></p>
+            <div id="result-summary" class="result-summary"></div>
+          </div>
+          <div id="review-list" class="review-list"></div>
+          <button id="restart-btn" class="primary-btn">Start Fresh Mock Exam</button>
+        </section>
+
+        <section id="history-screen" class="panel">
+          <div class="panel-copy">
+            <p class="eyebrow">Question History</p>
+            <h2>Completed and Mistakes</h2>
+            <p>Profile-wide history across all saved exams.</p>
+          </div>
+          <div class="history-controls">
+            <div class="review-toolbar">
+              <button id="history-correct-btn" class="review-filter-btn" type="button">Completed</button>
+              <button id="history-incorrect-btn" class="review-filter-btn active" type="button">Mistakes</button>
+            </div>
+            <div class="history-actions">
+              <button id="retry-mistakes-btn" class="primary-btn hidden" type="button">Retry Mistakes</button>
+              <button id="history-back-btn" class="secondary-btn" type="button">Back</button>
+            </div>
+          </div>
+          <div id="history-list" class="review-list"></div>
+          <div class="action-row history-action-row">
+            <button id="retry-mistakes-btn-bottom" class="primary-btn hidden" type="button">Retry Mistakes</button>
+            <button id="history-back-btn-bottom" class="secondary-btn" type="button">Back</button>
+          </div>
+        </section>
+
+        <section id="practice-screen" class="panel">
+          <div class="exam-main">
+            <div id="practice-question-area">
+              <div class="top-row">
+                <div>
+                  <p id="practice-progress-label" class="progress-label"></p>
+                  <h2 id="practice-question-text" class="question-text"></h2>
+                </div>
+                <div class="status-badges">
+                  <span class="badge">Practice Mode</span>
+                </div>
+              </div>
+              <form id="practice-answer-form" class="answers"></form>
+              <div class="action-row">
+                <button id="practice-submit-btn" class="primary-btn" type="button">Check Answer</button>
+                <button id="practice-next-btn" class="secondary-btn hidden" type="button">Next Question</button>
+              </div>
+              <section id="practice-feedback-box" class="feedback-box hidden"></section>
+            </div>
+            <div id="practice-complete-area" class="hidden">
+              <div class="panel-copy">
+                <p class="eyebrow">Practice Complete</p>
+                <h2 id="practice-score-headline"></h2>
+                <p id="practice-score-copy"></p>
+              </div>
+              <button id="practice-again-btn" class="primary-btn" type="button">Try Again</button>
+            </div>
+          </div>
+          <button id="practice-back-btn" class="secondary-btn practice-back" type="button">Back to History</button>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
